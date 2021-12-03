@@ -1,7 +1,7 @@
-﻿using Enmeshed.BuildingBlocks.Infrastructure.Persistence.Database;
-using Challenges.Domain.Entities;
+﻿using Challenges.Domain.Entities;
 using Challenges.Domain.Ids;
 using Challenges.Infrastructure.Persistence.Database.ValueConverters;
+using Enmeshed.BuildingBlocks.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 

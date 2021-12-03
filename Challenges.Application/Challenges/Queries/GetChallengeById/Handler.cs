@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.Database;
 using Challenges.Application.Challenges.DTOs;
 using Challenges.Application.Extensions;
 using Challenges.Domain.Entities;
+using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.Database;
 using MediatR;
 
 namespace Challenges.Application.Challenges.Queries.GetChallengeById

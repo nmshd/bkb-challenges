@@ -1,8 +1,8 @@
 using System;
 using Azure.Identity;
-using Enmeshed.BuildingBlocks.API.Extensions;
 using Challenges.API.Extensions;
 using Challenges.Infrastructure.Persistence.Database;
+using Enmeshed.BuildingBlocks.API.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +14,7 @@ namespace Challenges.API
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build()
-                .MigrateDbContext<ApplicationDbContext>((context, services) => { });
+                .MigrateDbContext<ApplicationDbContext>((_, _) => { });
 
             host.Run();
         }

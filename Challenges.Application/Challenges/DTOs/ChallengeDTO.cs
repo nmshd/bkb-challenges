@@ -1,7 +1,7 @@
 ﻿using System;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Mapping;
 using Challenges.Domain.Entities;
 using Challenges.Domain.Ids;
+using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Mapping;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 
 namespace Challenges.Application.Challenges.DTOs
