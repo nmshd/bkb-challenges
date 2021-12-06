@@ -5,4 +5,4 @@ set -x
  
 dotnet restore
 dotnet build --no-restore
-dotnet test --no-restore --no-build"
+dotnet test --no-restore --no-build
