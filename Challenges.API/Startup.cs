@@ -6,53 +6,52 @@ using Challenges.Infrastructure.Persistence;
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Microsoft.ApplicationInsights.Extensibility;
 
-namespace Challenges.API
+namespace Challenges.API;
+
+public class Startup
 {
-    public class Startup
+    private readonly IConfiguration _configuration;
+    private readonly IWebHostEnvironment _env;
+
+    public Startup(IWebHostEnvironment env, IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-        private readonly IWebHostEnvironment _env;
+        _env = env;
+        _configuration = configuration;
+    }
 
-        public Startup(IWebHostEnvironment env, IConfiguration configuration)
+    public IServiceProvider ConfigureServices(IServiceCollection services)
+    {
+        services.AddCustomAspNetCore(_configuration, _env, options =>
         {
-            _env = env;
-            _configuration = configuration;
-        }
+            options.Authentication.Audience = "challenges";
+            options.Authentication.Authority = _configuration.GetAuthorizationConfiguration().Authority;
+            options.Authentication.ValidIssuer = _configuration.GetAuthorizationConfiguration().ValidIssuer;
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            services.AddCustomAspNetCore(_configuration, _env, options =>
-            {
-                options.Authentication.Audience = "challenges";
-                options.Authentication.Authority = _configuration.GetAuthorizationConfiguration().Authority;
-                options.Authentication.ValidIssuer = _configuration.GetAuthorizationConfiguration().ValidIssuer;
+            options.Cors.AllowedOrigins = _configuration.GetCorsConfiguration().AllowedOrigins;
+            options.Cors.ExposedHeaders = _configuration.GetCorsConfiguration().ExposedHeaders;
 
-                options.Cors.AllowedOrigins = _configuration.GetCorsConfiguration().AllowedOrigins;
-                options.Cors.ExposedHeaders = _configuration.GetCorsConfiguration().ExposedHeaders;
+            options.HealthChecks.SqlConnectionString = _configuration.GetSqlDatabaseConfiguration().ConnectionString;
 
-                options.HealthChecks.SqlConnectionString = _configuration.GetSqlDatabaseConfiguration().ConnectionString;
+            options.Json.Converters.Add(new ChallengeIdJsonConverter());
+        });
 
-                options.Json.Converters.Add(new ChallengeIdJsonConverter());
-            });
+        services.AddCustomApplicationInsights();
 
-            services.AddCustomApplicationInsights();
+        services.AddCustomFluentValidation();
 
-            services.AddCustomFluentValidation();
+        services.AddDatabase(dbOptions => { dbOptions.DbConnectionString = _configuration.GetSqlDatabaseConfiguration().ConnectionString; });
 
-            services.AddDatabase(dbOptions => { dbOptions.DbConnectionString = _configuration.GetSqlDatabaseConfiguration().ConnectionString; });
+        services.AddEventBus(_configuration.GetEventBusConfiguration());
 
-            services.AddEventBus(_configuration.GetEventBusConfiguration());
+        services.AddApplication();
 
-            services.AddApplication();
+        return services.ToAutofacServiceProvider();
+    }
 
-            return services.ToAutofacServiceProvider();
-        }
+    public void Configure(IApplicationBuilder app, TelemetryConfiguration telemetryConfiguration)
+    {
+        telemetryConfiguration.DisableTelemetry = !_configuration.GetApplicationInsightsConfiguration().Enabled;
 
-        public void Configure(IApplicationBuilder app, TelemetryConfiguration telemetryConfiguration)
-        {
-            telemetryConfiguration.DisableTelemetry = !_configuration.GetApplicationInsightsConfiguration().Enabled;
-
-            app.ConfigureMiddleware(_env);
-        }
+        app.ConfigureMiddleware(_env);
     }
 }

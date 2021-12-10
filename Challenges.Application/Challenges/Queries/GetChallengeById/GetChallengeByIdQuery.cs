@@ -2,10 +2,9 @@
 using Challenges.Domain.Ids;
 using MediatR;
 
-namespace Challenges.Application.Challenges.Queries.GetChallengeById
+namespace Challenges.Application.Challenges.Queries.GetChallengeById;
+
+public class GetChallengeByIdQuery : IRequest<ChallengeDTO>
 {
-    public class GetChallengeByIdQuery : IRequest<ChallengeDTO>
-    {
-        public ChallengeId Id { get; set; }
-    }
+    public ChallengeId Id { get; set; }
 }

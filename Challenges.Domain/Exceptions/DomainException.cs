@@ -1,4 +1,3 @@
-﻿namespace Challenges.Domain.Exceptions
-{
-    public class DomainException : Exception { }
-}
+﻿namespace Challenges.Domain.Exceptions;
+
+public class DomainException : Exception { }

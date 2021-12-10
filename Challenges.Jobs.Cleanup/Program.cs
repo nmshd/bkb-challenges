@@ -6,80 +6,79 @@ using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.UserContex
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace Challenges.Jobs.Cleanup
+namespace Challenges.Jobs.Cleanup;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        private static IHostBuilder CreateHostBuilder(string[] args)
-        {
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureServices((hostContext, services) =>
-                {
-                    var configuration = hostContext.Configuration;
-
-                    services.AddHostedService<Worker>();
-
-                    services.AddApplication();
-
-                    services.AddSingleton<IUserContext, FakeUserContext>();
-
-                    services.AddDbContext<ApplicationDbContext>(dbContextOptions =>
-                        dbContextOptions.UseSqlServer(configuration.GetSection("SqlDatabase")["ConnectionString"], sqlOptions =>
-                        {
-                            sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).GetTypeInfo().Assembly.GetName().Name);
-                            sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
-                        }), ServiceLifetime.Singleton);
-
-                    services.AddSingleton<IDbContext, ApplicationDbContext>();
-                });
-        }
+        CreateHostBuilder(args).Build().Run();
     }
 
-    public class FakeUserContext : IUserContext
+    private static IHostBuilder CreateHostBuilder(string[] args)
     {
-        public IdentityAddress GetAddress()
-        {
-            throw new NotImplementedException();
-        }
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) =>
+            {
+                var configuration = hostContext.Configuration;
 
-        public IdentityAddress GetAddressOrNull()
-        {
-            throw new NotImplementedException();
-        }
+                services.AddHostedService<Worker>();
 
-        public DeviceId GetDeviceId()
-        {
-            throw new NotImplementedException();
-        }
+                services.AddApplication();
 
-        public DeviceId GetDeviceIdOrNull()
-        {
-            throw new NotImplementedException();
-        }
+                services.AddSingleton<IUserContext, FakeUserContext>();
 
-        public string GetUserId()
-        {
-            throw new NotImplementedException();
-        }
+                services.AddDbContext<ApplicationDbContext>(dbContextOptions =>
+                    dbContextOptions.UseSqlServer(configuration.GetSection("SqlDatabase")["ConnectionString"], sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).GetTypeInfo().Assembly.GetName().Name);
+                        sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
+                    }), ServiceLifetime.Singleton);
 
-        public string GetUserIdOrNull()
-        {
-            throw new NotImplementedException();
-        }
+                services.AddSingleton<IDbContext, ApplicationDbContext>();
+            });
+    }
+}
 
-        public IEnumerable<string> GetRoles()
-        {
-            throw new NotImplementedException();
-        }
+public class FakeUserContext : IUserContext
+{
+    public IdentityAddress GetAddress()
+    {
+        throw new NotImplementedException();
+    }
 
-        public SubscriptionPlan GetSubscriptionPlan()
-        {
-            throw new NotImplementedException();
-        }
+    public IdentityAddress GetAddressOrNull()
+    {
+        throw new NotImplementedException();
+    }
+
+    public DeviceId GetDeviceId()
+    {
+        throw new NotImplementedException();
+    }
+
+    public DeviceId GetDeviceIdOrNull()
+    {
+        throw new NotImplementedException();
+    }
+
+    public string GetUserId()
+    {
+        throw new NotImplementedException();
+    }
+
+    public string GetUserIdOrNull()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<string> GetRoles()
+    {
+        throw new NotImplementedException();
+    }
+
+    public SubscriptionPlan GetSubscriptionPlan()
+    {
+        throw new NotImplementedException();
     }
 }

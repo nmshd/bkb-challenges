@@ -1,4 +1,3 @@
-﻿namespace Challenges.Domain.Exceptions
-{
-    public class ChallengeExpiredException : DomainException { }
-}
+﻿namespace Challenges.Domain.Exceptions;
+
+public class ChallengeExpiredException : DomainException { }
