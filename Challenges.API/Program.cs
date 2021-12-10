@@ -5,11 +5,10 @@ using Challenges.Infrastructure.Persistence.Database;
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Microsoft.AspNetCore;
 
-var host = CreateWebHostBuilder(args)
+CreateWebHostBuilder(args)
     .Build()
-    .MigrateDbContext<ApplicationDbContext>((_, _) => { });
-
-host.Run();
+    .MigrateDbContext<ApplicationDbContext>((_, _) => { })
+    .Run();
 
 static IWebHostBuilder CreateWebHostBuilder(string[] args)
 {
