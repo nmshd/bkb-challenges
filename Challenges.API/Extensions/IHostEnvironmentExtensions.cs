@@ -1,12 +1,9 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿namespace Challenges.API.Extensions;
 
-namespace Challenges.API.Extensions
+public static class IHostEnvironmentExtensions
 {
-    public static class IHostEnvironmentExtensions
+    public static bool IsLocal(this IHostEnvironment env)
     {
-        public static bool IsLocal(this IHostEnvironment env)
-        {
-            return env.EnvironmentName == "Local";
-        }
+        return env.EnvironmentName == "Local";
     }
 }

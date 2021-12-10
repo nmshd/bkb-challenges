@@ -1,53 +1,42 @@
-using System;
 using Azure.Identity;
+using Challenges.API;
 using Challenges.API.Extensions;
 using Challenges.Infrastructure.Persistence.Database;
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 
-namespace Challenges.API
+CreateWebHostBuilder(args)
+    .Build()
+    .MigrateDbContext<ApplicationDbContext>((_, _) => { })
+    .Run();
+
+static IWebHostBuilder CreateWebHostBuilder(string[] args)
 {
-    public class Program
-    {
-        public static void Main(string[] args)
+    return WebHost.CreateDefaultBuilder(args)
+        .UseKestrel(options =>
         {
-            var host = CreateWebHostBuilder(args).Build()
-                .MigrateDbContext<ApplicationDbContext>((_, _) => { });
+            options.AddServerHeader = false;
+            options.Limits.MaxRequestBodySize = 0;
+        })
+        .ConfigureAppConfiguration(AddAzureAppConfiguration)
+        .UseStartup<Startup>();
+}
 
-            host.Run();
-        }
+static void AddAzureAppConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder builder)
+{
+    var configuration = builder.Build();
 
-        private static IWebHostBuilder CreateWebHostBuilder(string[] args)
+    var azureAppConfigurationConfiguration = configuration.GetAzureAppConfigurationConfiguration();
+
+    if (azureAppConfigurationConfiguration.Enabled)
+        builder.AddAzureAppConfiguration(appConfigurationOptions =>
         {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(options =>
-                {
-                    options.AddServerHeader = false;
-                    options.Limits.MaxRequestBodySize = 0;
-                })
-                .ConfigureAppConfiguration(AddAzureAppConfiguration)
-                .UseStartup<Startup>();
-        }
+            var credentials = new ManagedIdentityCredential();
 
-        private static void AddAzureAppConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder builder)
-        {
-            var configuration = builder.Build();
-
-            var azureAppConfigurationConfiguration = configuration.GetAzureAppConfigurationConfiguration();
-
-            if (azureAppConfigurationConfiguration.Enabled)
-                builder.AddAzureAppConfiguration(appConfigurationOptions =>
-                {
-                    var credentials = new ManagedIdentityCredential();
-
-                    appConfigurationOptions
-                        .Connect(new Uri(azureAppConfigurationConfiguration.Endpoint), credentials)
-                        .ConfigureKeyVault(vaultOptions => { vaultOptions.SetCredential(credentials); })
-                        .Select("*", "")
-                        .Select("*", "Challenges");
-                });
-        }
-    }
+            appConfigurationOptions
+                .Connect(new Uri(azureAppConfigurationConfiguration.Endpoint), credentials)
+                .ConfigureKeyVault(vaultOptions => { vaultOptions.SetCredential(credentials); })
+                .Select("*", "")
+                .Select("*", "Challenges");
+        });
 }

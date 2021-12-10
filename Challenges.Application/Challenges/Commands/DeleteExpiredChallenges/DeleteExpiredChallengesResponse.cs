@@ -1,20 +1,18 @@
-﻿using System.Collections.Generic;
-using Challenges.Domain.Ids;
+﻿using Challenges.Domain.Ids;
 
-namespace Challenges.Application.Challenges.Commands.DeleteExpiredChallenges
+namespace Challenges.Application.Challenges.Commands.DeleteExpiredChallenges;
+
+public class DeleteExpiredChallengesResponse
 {
-    public class DeleteExpiredChallengesResponse
+    public DeleteExpiredChallengesResponse(IEnumerable<ChallengeId> deletedChallenges)
     {
-        public DeleteExpiredChallengesResponse(IEnumerable<ChallengeId> deletedChallenges)
-        {
-            DeletedChallenges = deletedChallenges;
-        }
+        DeletedChallenges = deletedChallenges;
+    }
 
-        public IEnumerable<ChallengeId> DeletedChallenges { get; set; }
+    public IEnumerable<ChallengeId> DeletedChallenges { get; set; }
 
-        public static DeleteExpiredChallengesResponse NoDeletedChallenges()
-        {
-            return new DeleteExpiredChallengesResponse(new ChallengeId[0]);
-        }
+    public static DeleteExpiredChallengesResponse NoDeletedChallenges()
+    {
+        return new DeleteExpiredChallengesResponse(Array.Empty<ChallengeId>());
     }
 }
