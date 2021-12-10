@@ -13,6 +13,6 @@ public class DeleteExpiredChallengesResponse
 
     public static DeleteExpiredChallengesResponse NoDeletedChallenges()
     {
-        return new DeleteExpiredChallengesResponse(new ChallengeId[0]);
+        return new DeleteExpiredChallengesResponse(Array.Empty<ChallengeId>());
     }
 }
