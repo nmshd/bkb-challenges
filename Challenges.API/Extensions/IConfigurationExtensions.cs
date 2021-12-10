@@ -49,7 +49,6 @@ public class AuthenticationConfiguration
     public string JwtSigningCertificate { get; set; }
 }
 
-
 public class KeyVaultConfiguration
 {
     public string ClientId { get; set; }
