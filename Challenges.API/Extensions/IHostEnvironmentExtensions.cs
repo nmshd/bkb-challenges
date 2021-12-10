@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Challenges.API.Extensions
+﻿namespace Challenges.API.Extensions
 {
     public static class IHostEnvironmentExtensions
     {

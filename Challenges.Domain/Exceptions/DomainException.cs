@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Challenges.Domain.Exceptions
+﻿namespace Challenges.Domain.Exceptions
 {
     public class DomainException : Exception { }
 }

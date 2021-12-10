@@ -1,15 +1,10 @@
-﻿using System;
-using Challenges.API.Extensions;
+﻿using Challenges.API.Extensions;
 using Challenges.API.JsonConverters;
 using Challenges.Application.Extensions;
 using Challenges.Infrastructure.EventBus;
 using Challenges.Infrastructure.Persistence;
 using Enmeshed.BuildingBlocks.API.Extensions;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Challenges.API
 {

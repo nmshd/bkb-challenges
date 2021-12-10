@@ -1,5 +1,4 @@
-﻿using System;
-using Challenges.Domain.Entities;
+﻿using Challenges.Domain.Entities;
 using Challenges.Domain.Ids;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Mapping;
 using Enmeshed.DevelopmentKit.Identity.ValueObjects;

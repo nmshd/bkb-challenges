@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Challenges.Application.Challenges.DTOs;
 using Challenges.Application.Extensions;
 using Challenges.Domain.Entities;

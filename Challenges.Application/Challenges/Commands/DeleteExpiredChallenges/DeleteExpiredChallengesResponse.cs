@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Challenges.Domain.Ids;
+﻿using Challenges.Domain.Ids;
 
 namespace Challenges.Application.Challenges.Commands.DeleteExpiredChallenges
 {

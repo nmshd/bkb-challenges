@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using Challenges.Infrastructure.EventBus;
-using Microsoft.Extensions.Configuration;
 
 namespace Challenges.API.Extensions
 {

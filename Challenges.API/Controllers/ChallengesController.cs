@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Challenges.Application.Challenges.Commands.CreateChallenge;
+﻿using Challenges.Application.Challenges.Commands.CreateChallenge;
 using Challenges.Application.Challenges.DTOs;
 using Challenges.Application.Challenges.Queries.GetChallengeById;
 using Challenges.Domain.Ids;
@@ -8,7 +7,6 @@ using Enmeshed.BuildingBlocks.API.Mvc;
 using Enmeshed.BuildingBlocks.API.Mvc.ControllerAttributes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Challenges.API.Controllers

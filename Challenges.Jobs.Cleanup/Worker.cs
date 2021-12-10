@@ -1,8 +1,5 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Challenges.Application.Challenges.Commands.DeleteExpiredChallenges;
 using MediatR;
-using Microsoft.Extensions.Hosting;
 
 namespace Challenges.Jobs.Cleanup
 {

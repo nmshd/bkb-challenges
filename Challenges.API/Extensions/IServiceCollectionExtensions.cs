@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text.Json.Serialization;
 using Challenges.API.ApplicationInsights.TelemetryInitializers;
 using Challenges.API.Certificates;
@@ -18,9 +15,6 @@ using Microsoft.ApplicationInsights.Extensibility.EventCounterCollector;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Challenges.API.Extensions
 {
@@ -60,8 +54,7 @@ namespace Challenges.API.Extensions
                     {
                         options.JsonSerializerOptions.Converters.Add(converter);
                     }
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                });
 
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Challenges.Domain.Entities;
+﻿using Challenges.Domain.Entities;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.Database;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
