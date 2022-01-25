@@ -3,7 +3,6 @@ using Challenges.Domain.Ids;
 using Challenges.Infrastructure.Persistence.Database.ValueConverters;
 using Enmeshed.BuildingBlocks.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Challenges.Infrastructure.Persistence.Database;
 
@@ -19,8 +18,12 @@ public class ApplicationDbContext : AbstractDbContextBase
     {
         base.OnModelCreating(builder);
 
-        builder.UseValueConverter(new ChallengeIdEntityFrameworkValueConverter(new ConverterMappingHints(ChallengeId.MAX_LENGTH)));
-
         builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+        configurationBuilder.Properties<ChallengeId>().AreFixedLength().AreUnicode(false).HaveMaxLength(ChallengeId.MAX_LENGTH).HaveConversion<ChallengeIdEntityFrameworkValueConverter>();
     }
 }
