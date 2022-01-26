@@ -10,8 +10,5 @@ public class ChallengeEventEntityTypeConfiguration : IEntityTypeConfiguration<Ch
 {
     public void Configure(EntityTypeBuilder<Challenge> builder)
     {
-        builder.Property(x => x.Id).HasColumnType($"char({ChallengeId.MAX_LENGTH})");
-        builder.Property(x => x.CreatedBy).HasColumnType($"char({IdentityAddress.MAX_LENGTH})");
-        builder.Property(x => x.CreatedByDevice).HasColumnType($"char({DeviceId.MAX_LENGTH})");
     }
 }
